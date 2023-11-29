@@ -1,0 +1,98 @@
+﻿@model WeatherForecast.Areas.Admin.Models.WeatherInfoVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Hava Durumu</h1>
+
+<!-- Weather Forecast Table Filter Section -->
+<div class="weather-forecast-filter">
+    <div class="input-list">
+        <form method="post" enctype="multipart/form-data" class="filter-form">
+            <div class="input">
+                <input type="date" class="text-muted" asp-for="weather_Info_Tab.WeatherDate" />
+            </div>
+            <div class="input">
+                <input type="text" class="text-muted" asp-for="weather_Info_Tab.CityName" class="form-text-input" placeholder="Şehir" />
+            </div>
+            <div class="input">
+                <button>Filtrele</button>
+            </div>
+        </form>
+        <div class="input search">
+            <img src="~/images/icons/loupe.png" />
+            <input type="text" id="searchInput" placeholder="Ara" />
+            <a href="#" class="search-append" type="button" data-open-modal>
+                <span class="menu-icon iconify" data-icon="mdi-plus">
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- End of Weather Forecast Table Filter Section -->
+<!-- Weather Forecast Table -->
+<div class="weather-forecast">
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    <div>
+                        <label class="weather-info-checkbox">
+                            <input type="checkbox" id="All" onclick="selectAllRows()">
+                        </label>
+                    </div>
+                </th>
+                <th>Tarih</th>
+                <th>Şehir</th>
+                <th>Günlük Ortalama Sıcaklık</th>
+                <th>Hava Durumu</th>
+                <th>
+                    <span>
+                        <a href="#" class="table-delete-link" onclick="event.preventDefault(); adminDeleteWeatherAsBatch()">
+                            <span class="iconify" data-icon="mdi-trash-can-outline"></span>
+                        </a>
+                    </span>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (var item in Model.weather_Info_Tabs)
+            {
+                string imageName = item.MainStatus;
+                <tr>
+                    <td>
+                        <div>
+                            <label class="weather-info-checkbox">
+                                <input type="checkbox" id="checkbox-@item.Id" name="checkboxes" value="@item.Id" onclick="changeBackground(this)">
+                            </label>
+                        </div>
+                    </td>
+                    <td>@item.WeatherDate.ToShortDateString()</td>
+                    <td>@item.CityName</td>
+                    <td>@item.Temperature °C</td>
+                    <td>@item.MainStatus <img class="WeatherConditionIcon" src="@item.MainStatusIcon" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!-- End of Weather Forecast Table -->
+
+<dialog data-modal id="add-data-modal" class="modal">
+    <div class="modal-content">
+        <form method="post" asp-action="AddWeatherData" enctype="multipart/form-data">
+            <div class="input-group">
+                <div class="input">
+                    <input type="text" class="text-muted" asp-for="weather_Info_Tab.CityName" class="form-text-input" placeholder="Şehir" />
+                </div>
+                <div class="input">
+                    <input type="date" class="text-muted" asp-for="weather_Info_Tab.WeatherDate" />
+                </div>
+            </div>
+            <button type="submit" class="modal-button">Ekle</button>
+        </form>
+    </div>
+    <button data-close-modal class="modal-close-btn">X</button>
+</dialog>

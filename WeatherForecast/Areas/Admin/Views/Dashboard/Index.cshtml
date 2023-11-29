@@ -1,0 +1,175 @@
+﻿@model WeatherForecast.Areas.Admin.Models.WeatherInfoVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .current-weather {
+        background: url('/images/weatherstatus/@Model.WeatherBackgroundPath');
+        background-size: cover;
+    }
+</style>
+
+<h1>Ana Sayfa</h1>
+
+<!-- Current Weather -->
+<div class="weather">
+    <div class="current-weather">
+        <div class="status">
+            <div class="weather-condition">
+                @if (Model.weather_Info_Tabs_Daily != null)
+                {
+                    <div class="weather-condition-status-image">
+                        <img class="weather-condition-image" src="@Model.weather_Info_Tabs_Daily.MainStatusIcon" />
+                    </div>
+                    <div class="weather-condition-status">
+                        <div class="weather-condition-temperature">
+                            <h1>@Model.weather_Info_Tabs_Daily.Temperature</h1><h3>°C</h3>
+                        </div>
+                        <div class="weather-condition-mainstatus">
+                            <p>@Model.weather_Info_Tabs_Daily.MainStatus</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="weather-condition-status">
+                        <div class="weather-condition-mainstatus">
+                            <h3>Veri Bulunamadı</h3>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="info">
+                <div class="date">
+                    <span class="iconify" data-icon="mdi-calendar"></span>
+                    <h3>@DateTime.Now.ToShortDateString()</h3>
+                </div>
+                <div class="location">
+                    <span class="iconify" data-icon="mdi-location"></span>
+                    <h3>@Model.weather_Info_Tab.CityName</h3>
+                    <a href="#" class="edit-city" type="button" data-open-modal>
+                        <span class="menu-icon iconify" data-icon="mdi-edit">
+                        </span>
+                    </a>
+                </div>
+                <div class="hour">
+                    <span class="iconify" data-icon="mdi-clock-outline"></span>
+                    <h3>@DateTime.Now.ToString("HH:mm")</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Current Weather -->
+
+<!-- Weekly Weather -->
+<div class="weekly-weather">
+    <h2>Haftalık Hava Durumu</h2>
+    <div class="weather-list">
+        <div class="weather-chart">
+            @if (Model.weather_Info_Tabs_Weekly != null)
+            {
+                <div id="weekWeatherChart" style="width: 550px; height: 200px;"></div>
+            }
+            else
+            {
+                <h3>Veri bulunamadı</h3>
+            }
+        </div>
+    </div>
+</div>
+<!-- End of Weekly Weather-->
+
+<dialog data-modal id="edit-city-modal" class="modal">
+    <div class="modal-content">
+        <form method="post" asp-action="EditCity" enctype="multipart/form-data">
+            <div class="input-group">
+                <div class="input">
+                    <input type="text" class="text-muted" asp-for="weather_Info_Tab.CityName" class="form-text-input" placeholder="Şehir" />
+                </div>
+            </div>
+            <button type="submit" class="modal-button">Düzenle</button>
+        </form>
+    </div>
+    <button data-close-modal class="modal-close-btn">X</button>
+</dialog>
+
+
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<script>
+
+    var weekData = [
+
+    @if (Model.weather_Info_Tabs_Weekly != null)
+    {
+        foreach (var item in Model.weather_Info_Tabs_Weekly)
+        {
+            <text>
+                { time: '@item.WeatherDate.ToShortDateString()', temperature: '@item.Temperature', icon: '@item.MainStatusIcon' },
+            </text>
+        }
+    }
+
+        ]
+
+    var weekSvg = d3.select("#weekWeatherChart")
+        .append("svg")
+        .attr("width", "100%")
+        .attr("height", "100%");
+
+    weekSvg.selectAll("line")
+        .data(weekData.slice(0, -1))
+        .enter()
+        .append("line")
+        .attr("x1", function (d, i) { return i * 70 + 30; })
+        .attr("y1", function (d) { return 100 - parseFloat(d.temperature); })
+        .attr("x2", function (d, i) { return (i + 1) * 70 + 30; })
+        .attr("y2", function (d, i) { return 100 - parseFloat(weekData[i + 1].temperature); })
+        .attr("stroke", "grey");
+
+    weekSvg.selectAll("circle")
+        .data(weekData)
+        .enter()
+        .append("circle")
+        .attr("cx", function (d, i) { return i * 70 + 30; })
+        .attr("cy", function (d) { return 100 - parseFloat(d.temperature); })
+        .attr("r", 5)
+        .attr("fill", "orange");
+
+    weekSvg.selectAll("image")
+        .data(weekData)
+        .enter()
+        .append("image")
+        .attr("x", function (d, i) { return i * 70 + 12; })
+        .attr("y", function (d) { return 110; })
+        .attr("width", 40)
+        .attr("height", 40)
+        .attr("xlink:href", function (d) { return d.icon; });
+
+    weekSvg.selectAll("text.temperature")
+        .data(weekData)
+        .enter()
+        .append("text")
+        .attr("class", "temperature")
+        .attr("x", function (d, i) { return i * 70 + 20; })
+        .attr("y", function (d) { return 170; })
+        .filter(function (d) { return d.icon.trim() !== ''; })
+        .text(function (d) { return d.temperature + '°C'; })
+        .style("fill", "var(--color-dark)");
+
+    weekSvg.selectAll("text.time")
+        .data(weekData)
+        .enter()
+        .append("text")
+        .attr("class", "time")
+        .attr("x", function (d, i) { return i * 70 + 10; })
+        .attr("y", function (d) { return 200; })
+        .text(function (d) { return d.time; })
+        .style("fill", "var(--color-dark-variant)");
+
+</script>

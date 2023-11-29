@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/css/panel.css">
+
+    <title>IFS Admin</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Sidebar Section -->
+        @await Component.InvokeAsync("AdminSidebar")
+        <!-- End of Sidebar Section -->
+        <!-- Main Content -->
+        <main>
+            @await Component.InvokeAsync("NToastNotify")
+            @RenderBody()
+        </main>
+        <!-- End of Main Content -->
+        <!-- Navbar Section-->
+        @await Component.InvokeAsync("AdminNavbar")
+        <!-- End of Navbar Section-->
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="//code.iconify.design/1/1.0.6/iconify.min.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="~/js/panel.js"></script>
+</body>
+
+</html>

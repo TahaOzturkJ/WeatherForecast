@@ -1,0 +1,51 @@
+﻿@model WeatherForecast.Areas.User.Models.UserProfileVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hesap Ayarları</h2>
+<!-- Account Settings -->
+<div class="account">
+    <div class="profile-settings">
+        <div class="profile">
+            <form method="post" asp-action="EditProfile">
+                <div class="input-profile-group">
+                    <div class="input-group">
+                        <label asp-for="Name">İsim - Soyisim</label>
+                        <input type="text" asp-for="Name" />
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="Email">E-Mail</label>
+                        <input type="email" asp-for="Email" />
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="DefaultCityName">Şehir</label>
+                        <input type="text" asp-for="DefaultCityName" />
+                    </div>
+                </div>
+                <div class="input-password-group">
+                    <div class="input-group">
+                        <label asp-for="Password">Mevcut Şifre</label>
+                        <input type="password" asp-for="Password" />
+                    </div>
+                    <div class="input-group">
+                        <label asp-for="ConfirmPassword">Mevcut Şifreyi Tekrar Girin</label>
+                        <input type="password" asp-for="ConfirmPassword" />
+                    </div>
+                    <div class="input-group">
+                        <button type="submit" class="form-button">Güncelle</button>
+                    </div>
+                    <div class="input-group">
+                        <a href="~/User/Account/ChangePassword" class="form-security-icon">
+                            Güvenlik                         
+                            <span class="menu-icon iconify" data-icon="mdi-arrow-right">
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

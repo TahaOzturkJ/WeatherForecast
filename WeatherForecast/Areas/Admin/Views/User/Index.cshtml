@@ -1,0 +1,81 @@
+﻿@model WeatherForecast.Areas.Admin.Models.UserVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Kullanıcılar</h1>
+
+<!-- Users Table Filter Section -->
+<div class="user-filter">
+    <div class="input-list">
+        <form method="post" enctype="multipart/form-data" class="filter-form">
+            <div class="input">
+                <input type="text" class="text-muted" asp-for="USER_TAB.Name" class="form-text-input" placeholder="İsim" />
+            </div>
+            <div class="input">
+                <input type="text" class="text-muted" asp-for="USER_TAB.Email" class="form-text-input" placeholder="E-Mail" />
+            </div>
+            <div class="input">
+                <input type="text" class="text-muted" asp-for="USER_TAB.DefaultCityName" class="form-text-input" placeholder="Şehir" />
+            </div>
+            <div class="input">
+                <button>Filtrele</button>
+            </div>
+        </form>
+        <div class="input search">
+            <img src="~/images/icons/loupe.png" />
+            <input type="text" id="searchInput" placeholder="Ara" />
+        </div>
+    </div>
+</div>
+<!-- End of Users Table Filter Section -->
+<!-- Users Table -->
+<div class="user">
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    <div>
+                        <label class="user-info-checkbox">
+                            <input type="checkbox" id="All" onclick="selectAllRows()">
+                        </label>
+                    </div>
+                </th>
+                <th>Kullanıcı Adı</th>
+                <th>İsim</th>
+                <th>Şehir</th>
+                <th>E-Mail</th>
+                <th>Rol</th>
+                <th>
+                    <span>
+                        <a href="#" class="table-delete-link" onclick="event.preventDefault(); adminDeleteUserAsBatch()">
+                            <span class="iconify" data-icon="mdi-trash-can-outline"></span>
+                        </a>
+                    </span>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (var item in Model.USER_TABs)
+            {
+                <tr>
+                    <td>
+                        <div>
+                            <label class="user-info-checkbox">
+                                <input type="checkbox" id="checkbox-@item.Id" name="checkboxes" value="@item.Id" onclick="changeBackground(this)">
+                            </label>
+                        </div>
+                    </td>
+                    <td>@item.Username</td>
+                    <td>@item.Name</td>
+                    <td>@item.DefaultCityName</td>
+                    <td>@item.Email</td>
+                    <td>@item.Role</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!-- End of Users Table -->

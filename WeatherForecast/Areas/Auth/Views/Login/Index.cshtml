@@ -1,0 +1,61 @@
+﻿@model WeatherForecast.Areas.Auth.Models.UserAuthModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/login.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <title>Index</title>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form method="post" asp-action="Register">
+                <h1>Hesap Oluştur</h1>
+                <input type="text" placeholder="Kullanıcı Adı" id="Username" name="Username" />
+                <input type="password" placeholder="Şifre" id="Password" name="Password" />
+                <input type="password" placeholder="Şifreyi Tekrar Girin" id="ConfirmPassword" name="ConfirmPassword" />
+                <input type="text" placeholder="İsim" id="Name" name="Name" />
+                <input type="text" placeholder="E-Mail" id="Email" name="Email" />
+                <input type="text" placeholder="Şehir" id="DefaultCityName" name="DefaultCityName" />
+                <div class="text-danger" asp-validation-summary="ModelOnly" id="RegisterValidationSummary"></div>
+                <button>Kayıt Ol</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form method="post" asp-action="Login">
+                <h1>Giriş</h1>
+                <input type="text" placeholder="Kullanıcı Adı" id="Username" name="Username" />
+                <input type="password" placeholder="Şifre" id="Password" name="Password" />
+                <a href="#">Şifremi Unuttum</a>
+                <div class="text-danger" asp-validation-summary="ModelOnly" id="LoginValidationSummary"></div>
+                <button>Giriş Yap</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Zaten Hesabınız Var Mı?</h1>
+                    <p>Hava durumunu görebilmek için lütfen giriş yapın.</p>
+                    <button class="hidden" id="login">Giriş Yap</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hesabınız Yok Mu?</h1>
+                    <p>Hava durumunu görebilmek için lütfen kayıt olun.</p>
+                    <button class="hidden" id="register">Kayıt Ol</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @await Component.InvokeAsync("NToastNotify")
+    <script src="~/js/login.js"></script>
+</body>
+</html>
