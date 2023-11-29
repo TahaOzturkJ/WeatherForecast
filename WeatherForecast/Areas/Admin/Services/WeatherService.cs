@@ -150,36 +150,46 @@ namespace WeatherForecast.Areas.Admin.Services
         {
             wiVM.weather_Info_Tabs_Daily = _witRep.Where(x => x.WeatherDate == DateTime.Now.Date && x.CityName == wiVM.weather_Info_Tab.CityName && x.Status != Project.ENTITY.Enums.DataStatus.Deleted).FirstOrDefault();
 
-            if (wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("Güneşli"))
-            {
-                wiVM.WeatherBackgroundPath = "sunny.gif";
-            }
-            else if (wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("Parçalı bulutlu"))
-            {
-                wiVM.WeatherBackgroundPath = "cloudy-sunny.gif";
-            }
-            else if (wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("Bulutlu"))
-            {
-                wiVM.WeatherBackgroundPath = "cloudy.gif";
-            }
-            else if (wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("Sis") || wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("Pus"))
-            {
-                wiVM.WeatherBackgroundPath = "foggy.gif";
-            }
-            else if (wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("Yağmur") || wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("çisenti") || wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("Yağış") || wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("yağışlı"))
-            {
-                wiVM.WeatherBackgroundPath = "rainy.gif";
-            }
-            else if (wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("Kar") || wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("Tipi"))
-            {
-                wiVM.WeatherBackgroundPath = "snowy.gif";
-            }
-            else if (wiVM.weather_Info_Tabs_Daily.MainStatus.Contains("Gök Gürültülü"))
-            {
-                wiVM.WeatherBackgroundPath = "thunder.gif";
-            }
 
-            if (wiVM.weather_Info_Tabs_Daily == null)
+            if (wiVM.weather_Info_Tabs_Daily != null)
+            {
+                switch (wiVM.weather_Info_Tabs_Daily.MainStatus)
+                {
+                    case string status when status.Contains("Güneşli"):
+                        wiVM.WeatherBackgroundPath = "sunny.gif";
+                        break;
+
+                    case string status when status.Contains("Parçalı bulutlu"):
+                        wiVM.WeatherBackgroundPath = "cloudy-sunny.gif";
+                        break;
+
+                    case string status when status.Contains("Bulutlu"):
+                        wiVM.WeatherBackgroundPath = "cloudy.gif";
+                        break;
+
+                    case string status when status.Contains("Sis") || status.Contains("Pus"):
+                        wiVM.WeatherBackgroundPath = "foggy.gif";
+                        break;
+
+                    case string status when status.Contains("Yağmur") || status.Contains("çisenti") || status.Contains("Yağış") || status.Contains("yağışlı"):
+                        wiVM.WeatherBackgroundPath = "rainy.gif";
+                        break;
+
+                    case string status when status.Contains("Kar") || status.Contains("Tipi"):
+                        wiVM.WeatherBackgroundPath = "snowy.gif";
+                        break;
+
+                    case string status when status.Contains("Gök Gürültülü"):
+                        wiVM.WeatherBackgroundPath = "thunder.gif";
+                        break;
+
+                    default:
+
+                        break;
+                }
+
+            }
+            else
             {
                 return null;
             }
