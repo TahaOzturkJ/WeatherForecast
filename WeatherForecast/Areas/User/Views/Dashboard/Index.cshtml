@@ -5,6 +5,13 @@
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .current-weather {
+        background: url('/images/weatherstatus/@Model.WeatherBackgroundPath');
+        background-size: cover;
+    }
+</style>
+
 
 <h1>Ana Sayfa</h1>
 
@@ -107,7 +114,7 @@
         }
     }
 
-        ]
+            ]
 
     var weekSvg = d3.select("#weekWeatherChart")
         .append("svg")
@@ -150,6 +157,7 @@
         .attr("class", "temperature")
         .attr("x", function (d, i) { return i * 70 + 20; })
         .attr("y", function (d) { return 170; })
+        .filter(function (d) { return d.icon.trim() !== ''; })
         .text(function (d) { return d.temperature + '°C'; })
         .style("fill", "var(--color-dark)");
 

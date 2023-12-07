@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    @await Component.InvokeAsync("NToastNotify")
 
     <div class="container" id="container">
         <div class="form-container sign-up">
@@ -25,7 +26,6 @@
                 <input type="text" placeholder="İsim" id="Name" name="Name" />
                 <input type="text" placeholder="E-Mail" id="Email" name="Email" />
                 <input type="text" placeholder="Şehir" id="DefaultCityName" name="DefaultCityName" />
-                <div class="text-danger" asp-validation-summary="ModelOnly" id="RegisterValidationSummary"></div>
                 <button>Kayıt Ol</button>
             </form>
         </div>
@@ -34,8 +34,6 @@
                 <h1>Giriş</h1>
                 <input type="text" placeholder="Kullanıcı Adı" id="Username" name="Username" />
                 <input type="password" placeholder="Şifre" id="Password" name="Password" />
-                <a href="#">Şifremi Unuttum</a>
-                <div class="text-danger" asp-validation-summary="ModelOnly" id="LoginValidationSummary"></div>
                 <button>Giriş Yap</button>
             </form>
         </div>
@@ -54,8 +52,6 @@
             </div>
         </div>
     </div>
-
-    @await Component.InvokeAsync("NToastNotify")
     <script src="~/js/login.js"></script>
 </body>
 </html>

@@ -171,7 +171,7 @@ namespace WeatherForecast.Areas.Admin.Services
                         wiVM.WeatherBackgroundPath = "foggy.gif";
                         break;
 
-                    case string status when status.Contains("Yağmur") || status.Contains("çisenti") || status.Contains("Yağış") || status.Contains("yağışlı"):
+                    case string status when status.Contains("Yağmur") || status.Contains("çisenti") || status.Contains("Yağış") || status.Contains("yağışlı") || status.Contains("yağmurlu"):
                         wiVM.WeatherBackgroundPath = "rainy.gif";
                         break;
 

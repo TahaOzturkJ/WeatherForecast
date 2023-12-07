@@ -30,7 +30,7 @@ namespace WeatherForecast.Areas.User.Controllers
 
             string userId = User.FindFirstValue("Id");
 
-            USER_TAB userInfo = _userService.GetUserInfos(Convert.ToInt32(userId));
+            USER_TAB userInfo = _userService.GetUserInfos(Convert.ToInt32(userId)).USER_TAB;
 
             wiVM.weather_Info_Tab.CityName = userInfo.DefaultCityName;
 

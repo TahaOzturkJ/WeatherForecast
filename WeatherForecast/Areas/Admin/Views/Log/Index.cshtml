@@ -1,0 +1,59 @@
+﻿@model WeatherForecast.Areas.Admin.Models.UserLogVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Kullanıcı Kayıtları</h1>
+
+<!-- Users Log Table Filter Section -->
+<div class="user-log-filter">
+    <div class="input-list">
+        <form method="post" enctype="multipart/form-data" class="filter-form">
+            <div class="input">
+                <input type="text" class="text-muted" asp-for="USER_LOG_TAB.USER_TAB.Name" class="form-text-input" placeholder="İsim" />
+            </div>
+            <div class="input">
+                <input type="text" class="text-muted" asp-for="USER_LOG_TAB.USER_TAB.Email" class="form-text-input" placeholder="E-Mail" />
+            </div>
+            <div class="input">
+                <button>Filtrele</button>
+            </div>
+        </form>
+        <div class="input search">
+            <img src="~/images/icons/loupe.png" />
+            <input type="text" id="searchInput" placeholder="Ara" />
+        </div>
+    </div>
+</div>
+<!-- End of Users Log Table Filter Section -->
+<!-- Users Log Table -->
+<div class="user-log">
+    <table>
+        <thead>
+            <tr>
+                <th>Kullanıcı Adı</th>
+                <th>İsim</th>
+                <th>E-mail</th>
+                <th>IP Adresi</th>
+                <th>Açıklama</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            @foreach (var item in Model.USER_LOG_TABs)
+            {
+                <tr>
+                    <td>@item.USER_TAB.Username</td>
+                    <td>@item.USER_TAB.Name</td>
+                    <td>@item.USER_TAB.Email</td>
+                    <td>@item.IpAddress</td>
+                    <td>@item.Yon</td>
+                    <td>@item.CreatedDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!-- End of Users Log Table -->

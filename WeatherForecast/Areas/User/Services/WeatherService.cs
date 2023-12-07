@@ -23,7 +23,45 @@ namespace WeatherForecast.Areas.User.Service
         {
             wiVM.weather_Info_Tabs_Daily = _witRep.Where(x => x.WeatherDate == DateTime.Now.Date && x.CityName == wiVM.weather_Info_Tab.CityName && x.Status != Project.ENTITY.Enums.DataStatus.Deleted).FirstOrDefault();
 
-            if (wiVM.weather_Info_Tabs_Daily == null)
+            if (wiVM.weather_Info_Tabs_Daily != null)
+            {
+                switch (wiVM.weather_Info_Tabs_Daily.MainStatus)
+                {
+                    case string status when status.Contains("Güneşli"):
+                        wiVM.WeatherBackgroundPath = "sunny.gif";
+                        break;
+
+                    case string status when status.Contains("Parçalı bulutlu"):
+                        wiVM.WeatherBackgroundPath = "cloudy-sunny.gif";
+                        break;
+
+                    case string status when status.Contains("Bulutlu"):
+                        wiVM.WeatherBackgroundPath = "cloudy.gif";
+                        break;
+
+                    case string status when status.Contains("Sis") || status.Contains("Pus"):
+                        wiVM.WeatherBackgroundPath = "foggy.gif";
+                        break;
+
+                    case string status when status.Contains("Yağmur") || status.Contains("çisenti") || status.Contains("Yağış") || status.Contains("yağışlı") || status.Contains("yağmurlu"):
+                        wiVM.WeatherBackgroundPath = "rainy.gif";
+                        break;
+
+                    case string status when status.Contains("Kar") || status.Contains("Tipi"):
+                        wiVM.WeatherBackgroundPath = "snowy.gif";
+                        break;
+
+                    case string status when status.Contains("Gök Gürültülü"):
+                        wiVM.WeatherBackgroundPath = "thunder.gif";
+                        break;
+
+                    default:
+
+                        break;
+                }
+
+            }
+            else
             {
                 return null;
             }

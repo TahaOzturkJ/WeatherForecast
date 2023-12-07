@@ -19,7 +19,7 @@ namespace WeatherForecast.Areas.Auth.Controllers
             _userService = userService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index([FromServices] IToastNotification toast)
         {
             return View();
         }

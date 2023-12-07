@@ -1,4 +1,6 @@
-﻿<div class="right-section">
+﻿@model WeatherForecast.Areas.User.Models.UserVM
+
+<div class="right-section">
 
     <div class="nav">
 
@@ -19,8 +21,8 @@
 
         <div class="profile">
             <div class="info">
-                <p>Merhaba, <b>Taha</b></p>
-                <small class="text-muted">Üye</small>
+                <p>Merhaba, <b>@Model.USER_TAB.Name</b></p>
+                <small class="text-muted">@Model.USER_TAB.Role</small>
             </div>
             <div class="profile-photo">
                 <img src="~/images/profile-photo.jpg" alt="profile-photo">

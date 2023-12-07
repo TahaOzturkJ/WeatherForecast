@@ -17,6 +17,7 @@
     --card-padding: 1.8rem;
     --padding-1: 1.2rem;
     --box-shadow: 0 2rem 3rem var(--color-light);
+    --weather-color-dark: #c3c3c3;
 }
 
 .dark-mode-variables {
@@ -26,6 +27,7 @@
     --color-dark-variant: #a3bdcc;
     --color-light: rgba(0, 0, 0, 0.4);
     --box-shadow: 0 2rem 3rem var(--color-light);
+    --weather-color-dark: #edeffd;
 }
 
 * {
@@ -249,6 +251,7 @@ main {
         main .weather .current-weather .status .weather-condition {
             display: flex;
             margin-left: 10px;
+            color: var(--weather-color-dark);
         }
 
             main .weather .current-weather .status .weather-condition .weather-condition-status {
@@ -258,13 +261,21 @@ main {
                 min-height: 100px;
             }
 
-            main .weather .current-weather .status .weather-condition .weather-condition-status .weather-condition-mainstatus {
-                width:130px;
-            }
+                main .weather .current-weather .status .weather-condition .weather-condition-status .weather-condition-mainstatus {
+                    width: 130px;
+                }
+
+                main .weather .current-weather .status .weather-condition .weather-condition-status .weather-condition-mainstatus p {
+                    color: var(--weather-color-dark);
+                }
 
                 main .weather .current-weather .status .weather-condition .weather-condition-status .weather-condition-temperature {
                     display: flex;
                     flex-direction: row;
+                }
+
+                main .weather .current-weather .status .weather-condition .weather-condition-status .weather-condition-temperature h1 {
+                    color: var(--weather-color-dark);
                 }
 
             main .weather .current-weather .status .weather-condition .weather-condition-status-image img {
@@ -277,6 +288,7 @@ main {
             position: absolute;
             top: 0;
             right: 0;
+            color: var(--weather-color-dark);
         }
 
             main .weather .current-weather .status .info .location, .date, .hour {
@@ -286,6 +298,7 @@ main {
 
                 main .weather .current-weather .status .info .location svg {
                     margin-top: 0.3rem;
+                    color: var(--weather-color-dark);
                 }
 
             main .weather .current-weather .status .info .date svg {

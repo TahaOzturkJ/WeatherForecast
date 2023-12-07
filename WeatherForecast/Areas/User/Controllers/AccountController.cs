@@ -24,7 +24,7 @@ namespace WeatherForecast.Areas.User.Controllers
             string userId = User.FindFirstValue("Id");
 
             UserProfileVM user = new UserProfileVM();
-            user.USER_TAB = _userService.GetUserInfos(Convert.ToInt32(userId));
+            user.USER_TAB = _userService.GetUserInfos(Convert.ToInt32(userId)).USER_TAB;
 
             user.Name = user.USER_TAB.Name;
             user.Email = user.USER_TAB.Email;
