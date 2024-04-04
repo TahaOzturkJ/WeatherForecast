@@ -2,16 +2,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using NToastNotify;
 using Project.DAL.Context;
-using Project.ENTITY.Models;
-using WeatherForecast.Areas.Admin.IServices;
-using WeatherForecast.Areas.Admin.Services;
-using WeatherForecast.Areas.User.IService;
-using WeatherForecast.Areas.User.Service;
-using WeatherForecast.Areas.Auth.IServices;
-using WeatherForecast.Areas.Auth.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
